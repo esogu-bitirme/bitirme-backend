@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/BitirmeBackend/BitirmeBackend/bin/Debug/net7.0
+/BitirmeBackend/BitirmeBackend/obj
+/BitirmeBackend/BitirmeBackend/Properties
+/BitirmeBackend/.vs/BitirmeBackend

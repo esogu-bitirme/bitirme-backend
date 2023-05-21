@@ -1,3 +1,9 @@
+using DataAccess;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +12,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<ApplicationDbContext>(
+            options => options.UseNpgsql(builder.Configuration["database"]));
 
 var app = builder.Build();
 
@@ -16,10 +24,23 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+try
+{
+    app.Run();
+}
+catch (Exception e)
+{
+    Log.Fatal(e, "Application failed to start.");
+}
+finally
+{
+    Log.CloseAndFlush();
+}

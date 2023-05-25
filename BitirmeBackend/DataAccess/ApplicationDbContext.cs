@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Entities.Modals;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 
 namespace DataAccess
@@ -19,6 +20,18 @@ namespace DataAccess
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
+
+        }
+
+        public ApplicationDbContext()
+        {
+
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseNpgsql(@"Host=localhost;Port=5432;Database=bitirme;Username=postgres;Password=admin");
 
         }
     }

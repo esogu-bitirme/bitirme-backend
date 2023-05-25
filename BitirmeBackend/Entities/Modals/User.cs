@@ -21,9 +21,20 @@ namespace Entities.Modals
 
         [Index(IsUnique = true)]
         public string Email { get; set; }
-        public UserType UserType { get; set; }
+
+        [Column("UserType")]
+        public string UserTypeString 
+        { 
+            get { return UserType.ToString(); }
+            private set { UserType = value.ParseEnum<UserType>(); } 
+        }
+
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
+
+        [NotMapped]
+        public UserType UserType { get; set; }
+
 
     }
 }

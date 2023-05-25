@@ -752,6 +752,19 @@
             "rid": "win"
           }
         }
+      },
+      "Entities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "EntityFramework": "6.4.4"
+        },
+        "compile": {
+          "bin/placeholder/Entities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Entities.dll": {}
+        }
       }
     }
   },
@@ -2140,10 +2153,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Entities/1.0.0": {
+      "type": "project",
+      "path": "../Entities/Entities.csproj",
+      "msbuildProject": "../Entities/Entities.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "Entities >= 1.0.0",
       "EntityFramework >= 6.4.4",
       "Microsoft.AspNetCore.OpenApi >= 7.0.2",
       "Microsoft.EntityFrameworkCore >= 8.0.0-preview.4.23259.3",
@@ -2153,19 +2172,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\aykoo\\.nuget\\packages\\": {}
+    "C:\\Users\\soner\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aykoo\\OneDrive\\Desktop\\bitirme-backend\\BitirmeBackend\\DataAccess\\DataAccess.csproj",
+      "projectUniqueName": "D:\\git\\bitirme-backend\\BitirmeBackend\\DataAccess\\DataAccess.csproj",
       "projectName": "DataAccess",
-      "projectPath": "C:\\Users\\aykoo\\OneDrive\\Desktop\\bitirme-backend\\BitirmeBackend\\DataAccess\\DataAccess.csproj",
-      "packagesPath": "C:\\Users\\aykoo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aykoo\\OneDrive\\Desktop\\bitirme-backend\\BitirmeBackend\\DataAccess\\obj\\",
+      "projectPath": "D:\\git\\bitirme-backend\\BitirmeBackend\\DataAccess\\DataAccess.csproj",
+      "packagesPath": "C:\\Users\\soner\\.nuget\\packages\\",
+      "outputPath": "D:\\git\\bitirme-backend\\BitirmeBackend\\DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\aykoo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\soner\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2178,7 +2197,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\git\\bitirme-backend\\BitirmeBackend\\Entities\\Entities.csproj": {
+              "projectPath": "D:\\git\\bitirme-backend\\BitirmeBackend\\Entities\\Entities.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -2236,7 +2259,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

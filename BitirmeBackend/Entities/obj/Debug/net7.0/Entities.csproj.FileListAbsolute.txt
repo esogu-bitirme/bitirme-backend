@@ -1,0 +1,14 @@
+D:\git\bitirme-backend\BitirmeBackend\Entities\bin\Debug\net7.0\Entities.deps.json
+D:\git\bitirme-backend\BitirmeBackend\Entities\bin\Debug\net7.0\Entities.dll
+D:\git\bitirme-backend\BitirmeBackend\Entities\bin\Debug\net7.0\Entities.pdb
+D:\git\bitirme-backend\BitirmeBackend\Entities\obj\Debug\net7.0\Entities.csproj.AssemblyReference.cache
+D:\git\bitirme-backend\BitirmeBackend\Entities\obj\Debug\net7.0\Entities.GeneratedMSBuildEditorConfig.editorconfig
+D:\git\bitirme-backend\BitirmeBackend\Entities\obj\Debug\net7.0\Entities.AssemblyInfoInputs.cache
+D:\git\bitirme-backend\BitirmeBackend\Entities\obj\Debug\net7.0\Entities.AssemblyInfo.cs
+D:\git\bitirme-backend\BitirmeBackend\Entities\obj\Debug\net7.0\Entities.csproj.CoreCompileInputs.cache
+D:\git\bitirme-backend\BitirmeBackend\Entities\obj\Debug\net7.0\Entities.dll
+D:\git\bitirme-backend\BitirmeBackend\Entities\obj\Debug\net7.0\refint\Entities.dll
+D:\git\bitirme-backend\BitirmeBackend\Entities\obj\Debug\net7.0\Entities.pdb
+D:\git\bitirme-backend\BitirmeBackend\Entities\obj\Debug\net7.0\ref\Entities.dll
+D:\git\bitirme-backend\BitirmeBackend\Entities\bin\Debug\net7.0\Entities.runtimeconfig.json
+D:\git\bitirme-backend\BitirmeBackend\Entities\obj\Debug\net7.0\Entities.genruntimeconfig.cache

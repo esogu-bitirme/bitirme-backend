@@ -1,4 +1,9 @@
+using Business.Abstract;
+using Business.Concrete;
 using DataAccess;
+using DataAccess.Abstract;
+using DataAccess.Concrete;
+using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -21,6 +26,12 @@ builder.Services.AddCors(c =>
 {
     c.AddPolicy("All", p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 });
+
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 
 
 var app = builder.Build();

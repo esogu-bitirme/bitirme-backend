@@ -18,11 +18,7 @@ namespace Entities.Modals
 
         [MaxLength(30)]
         public string Surname { get; set; }
-
-        [Index(IsUnique = true)]
         public string Tckn { get; set; }
-
-        [Index(IsUnique = true)]
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public User User { get; set; }

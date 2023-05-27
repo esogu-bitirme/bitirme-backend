@@ -13,8 +13,8 @@ namespace Business.Concrete
     public class UserService : IUserService
     {
         private IUserRepository _userRepository;
-        public UserService() {
-            _userRepository = new UserRepository();
+        public UserService(IUserRepository userRepository) {
+            _userRepository = userRepository;
         }
         public User Add(User user)
         {

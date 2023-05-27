@@ -72,7 +72,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Modals.Comment", b =>
@@ -106,7 +106,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("ReportId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Modals.DoctorPatient", b =>
@@ -135,7 +135,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("DoctorPatients");
+                    b.ToTable("DoctorPatients", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Modals.Image", b =>
@@ -178,7 +178,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("ReportId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Modals.Patient", b =>
@@ -224,7 +224,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Modals.Report", b =>
@@ -266,7 +266,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Reports");
+                    b.ToTable("Reports", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Modals.User", b =>
@@ -303,7 +303,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Doctor", b =>

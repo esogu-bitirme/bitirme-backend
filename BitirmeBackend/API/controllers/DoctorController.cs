@@ -2,33 +2,35 @@
 using Business.Abstract;
 using Business.Concrete;
 using DataAccess;
+using Entities;
 using Entities.Dtos.Request;
 using Entities.Dtos.Response;
 using Entities.Exceptions;
 using Entities.Modals;
+using Entities.Request;
+using Entities.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/user")]
+    [Route("api/doctor")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class DoctorController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IUserService _userService;
-        public UserController(IMapper mapper,IUserService userService)
+        private readonly IDoctorService _doctorService;
+        public DoctorController(IMapper mapper, IDoctorService doctorService)
         {
             _mapper = mapper;
-            _userService = userService;
-            
+            _doctorService = doctorService;
         }
 
         [HttpGet]
-
-        public IActionResult GetAllUsers() {
+        public IActionResult GetAllDoctors()
+        {
             try
             {
-                var records = _mapper.Map<List<UserResponseDto>>(_userService.GetAll());
+                var records = _mapper.Map<List<DoctorResponseDto>>(_doctorService.GetAll());
                 return Ok(records);
             }
             catch (Exception ex)
@@ -37,12 +39,12 @@ namespace API.Controllers
             }
         }
 
-
         [HttpGet("{id}")]
-        public IActionResult GetUser(int id) {
+        public IActionResult GetDoctor(int id)
+        {
             try
             {
-                var record = _mapper.Map<UserResponseDto>(_userService.GetById(id));
+                var record = _mapper.Map<DoctorResponseDto>(_doctorService.GetById(id));
                 return Ok(record);
             }
             catch (EntityNotFoundException ex)
@@ -56,49 +58,28 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser(UserRequestDto user)
+        public IActionResult AddDoctor(DoctorRequestDto doctor)
         {
             try
             {
-                var userRequest = _mapper.Map<User>(user);
-                User userResponse = _userService.Add(userRequest);
-                UserResponseDto userResponseDto = _mapper.Map<UserResponseDto>(userResponse);
-                return Ok(userResponseDto);
-            }catch(Exception ex)
+                var doctorRequest = _mapper.Map<Doctor>(doctor);
+                Doctor doctorResponse = _doctorService.Add(doctorRequest);
+                DoctorResponseDto doctorResponseDto = _mapper.Map<DoctorResponseDto>(doctorResponse);
+                return Ok(doctorResponseDto);
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
+        public IActionResult DeleteDoctor(int id)
         {
             try
             {
-                _userService.Delete(id);
-                return Ok("User successfully deleted with id "+id+"!");
-            }
-            catch (EntityNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPut]
-        public IActionResult UpdateUser(UserUpdateRequestDto user)
-        {
-
-            try
-            {
-                var userRequest = _mapper.Map<User>(user);
-                User userResponse = _userService.Update(userRequest);
-                UserResponseDto updatedUser = _mapper.Map<UserResponseDto>(userResponse);
-                return Ok(updatedUser);
+                _doctorService.Delete(id);
+                return Ok("Doctor successfully deleted with id " + id + "!");
             }
             catch (EntityNotFoundException ex)
             {
@@ -110,5 +91,24 @@ namespace API.Controllers
             }
         }
 
+        [HttpPut]
+        public IActionResult UpdateDoctor(DoctorUpdateRequestDto doctor)
+        {
+            try
+            {
+                var doctorRequest = _mapper.Map<Doctor>(doctor);
+                Doctor doctorResponse = _doctorService.Update(doctorRequest);
+                DoctorResponseDto updatedDoctor = _mapper.Map<DoctorResponseDto>(doctorResponse);
+                return Ok(updatedDoctor);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

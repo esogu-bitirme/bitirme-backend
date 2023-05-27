@@ -25,7 +25,18 @@ namespace DataAccess
 
         public ApplicationDbContext()
         {
+           
+        }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique(); //todo : doesn't work Idk why
+            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<Doctor>().HasIndex(u => u.Tckn).IsUnique();
+            modelBuilder.Entity<Doctor>().HasIndex(u => u.PhoneNumber).IsUnique();
+            modelBuilder.Entity<Patient>().HasIndex(u => u.Tckn).IsUnique();
+            modelBuilder.Entity<Patient>().HasIndex(u => u.PhoneNumber).IsUnique(); 
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

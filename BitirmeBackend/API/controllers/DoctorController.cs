@@ -19,10 +19,12 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IDoctorService _doctorService;
-        public DoctorController(IMapper mapper, IDoctorService doctorService)
+        private readonly IDoctorPatientService _doctorPatientService;
+        public DoctorController(IMapper mapper, IDoctorService doctorService, IDoctorPatientService doctorPatientService)
         {
             _mapper = mapper;
             _doctorService = doctorService;
+            _doctorPatientService = doctorPatientService;
         }
 
         [HttpGet]
@@ -104,6 +106,19 @@ namespace API.Controllers
             catch (EntityNotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("patient/{doctorId}/{patientId}")]
+        public IActionResult AddRelationWithPatientId(int patientId,int doctorId)
+        {
+            try
+            {
+                return Ok(_doctorPatientService.Add(patientId,doctorId));
             }
             catch (Exception ex)
             {

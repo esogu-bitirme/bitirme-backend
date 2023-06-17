@@ -50,6 +50,8 @@ builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IDoctorPatientService, DoctorPatientService>();
+builder.Services.AddScoped<IDoctorPatientRepository, DoctorPatientRepository>();
 
 
 var app = builder.Build();

@@ -421,3 +421,4 @@ FodyWeavers.xsd
 /BitirmeBackend/API/bin/Debug/net7.0/appsettings.json
 /BitirmeBackend/Business/obj/Debug/net7.0/ref/Business.dll
 /BitirmeBackend/Business/obj/Debug/net7.0/refint/Business.dll
+/BitirmeBackend/API/bin/Debug/net7.0/API.deps.json

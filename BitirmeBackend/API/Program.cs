@@ -44,14 +44,9 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-builder.Services.AddCors(options =>
+builder.Services.AddCors(c =>
 {
-    options.AddPolicy("AnyOrigin", builder =>
-    {
-        builder
-            .AllowAnyOrigin()
-            .AllowAnyMethod();
-    });
+    c.AddPolicy("All", p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 });
 
 
@@ -77,10 +72,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseCors("AnyOrigin");
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("All");
 
 app.UseSwaggerUI(options =>
 {

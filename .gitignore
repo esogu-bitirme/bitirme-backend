@@ -418,3 +418,4 @@ FodyWeavers.xsd
 /BitirmeBackend/DataAccess/obj/Debug/net7.0/refint/DataAccess.dll
 /BitirmeBackend/API/obj/Debug/net7.0/ref/API.dll
 /BitirmeBackend/API/obj/Debug/net7.0/refint/API.dll
+/BitirmeBackend/API/bin/Debug/net7.0/appsettings.json

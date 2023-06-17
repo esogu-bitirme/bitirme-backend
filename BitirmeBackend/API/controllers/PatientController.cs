@@ -68,6 +68,8 @@ namespace API.Controllers
             try
             {
                 var userId = HttpContext.User.FindFirst("userId")?.Value;
+                if (userId is null)
+                    throw new EntityNotFoundException("User id not found within http context!");
 
                 int userIdInt = int.Parse(userId);
 

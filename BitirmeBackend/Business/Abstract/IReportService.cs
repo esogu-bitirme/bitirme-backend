@@ -20,6 +20,6 @@ namespace Business.Abstract
         Report Update(Report report);
 
         bool Delete(int id);
-
+        Task<List<Report>> GetByPatientId(int patientId);
     }
 }

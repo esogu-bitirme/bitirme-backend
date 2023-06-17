@@ -47,7 +47,6 @@ namespace DataAccess.Concrete
         {
             try
             {
-                //Patient patient = _context.Patients.Find(id);
                 Patient patient = _context.Patients.FirstOrDefault(d => d.Id == id);
                 if (patient == null)
                 {
@@ -63,8 +62,13 @@ namespace DataAccess.Concrete
         {
             try
             {
-                int doctorId = _context.Doctors.FirstOrDefault(x=>x.UserId == doctorUserId).Id;
-                List<DoctorPatient> relations = _context.DoctorPatients.Where(x => x.DoctorId == doctorId).ToList();
+                var doctor = _context.Doctors.FirstOrDefault(x=>x.UserId == doctorUserId);
+                if (doctor == null)
+                {
+                    throw new EntityNotFoundException("Doctor not found with id " + doctorUserId.ToString() + " !");
+                }
+
+                List<DoctorPatient> relations = _context.DoctorPatients.Where(x => x.DoctorId == doctor.Id).ToList();
                 List<Patient> patients = new List<Patient>();
                 foreach (DoctorPatient rel in relations)
                 {
@@ -79,16 +83,14 @@ namespace DataAccess.Concrete
 
         public Patient Update(Patient patient)
         {
-            using (var context = new ApplicationDbContext())
+            using var context = new ApplicationDbContext();
+            try
             {
-                try
-                {
-                    context.Patients.Update(patient);
-                    context.SaveChanges();
-                    return patient;
-                }
-                catch (Exception exception) { throw exception; }
+                context.Patients.Update(patient);
+                context.SaveChanges();
+                return patient;
             }
+            catch (Exception exception) { throw exception; }
 
         }
         public bool Delete(int id)

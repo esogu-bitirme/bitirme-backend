@@ -11,11 +11,11 @@ namespace DataAccess.Abstract
 {
     public interface IReportRepository
     {
-        public List<Report> GetAll();
-        public Report GetById(int id);
-        public Report Add(Report report);
-        public Report Update(Report report);
-        public bool Delete(int id);
-
+        List<Report> GetAll();
+        Report GetById(int id);
+        Report Add(Report report);
+        Report Update(Report report);
+        bool Delete(int id);
+        Task<List<Report>> GetByPatientId(int patientId);
     }
 }

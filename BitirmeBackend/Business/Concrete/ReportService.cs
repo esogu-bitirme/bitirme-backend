@@ -1,12 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Modals;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.Abstract;
-using DataAccess.Concrete;
 
 namespace Business.Concrete
 {
@@ -44,6 +38,11 @@ namespace Business.Concrete
             Report currentReport = _reportRepository.GetById(report.Id);
             report.CreateDate = currentReport.CreateDate;
             return _reportRepository.Update(report);
+        }
+
+        public async Task<List<Report>> GetByPatientId(int patientId)
+        {
+            return await _reportRepository.GetByPatientId(patientId);
         }
     }
 }

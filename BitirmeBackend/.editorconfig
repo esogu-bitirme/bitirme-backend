@@ -27,6 +27,12 @@ csharp_style_expression_bodied_local_functions = false:silent
 # CS8601: Possible null reference assignment.
 dotnet_diagnostic.CS8601.severity = none
 
+# CS8602: Dereference of a possibly null reference.
+dotnet_diagnostic.CS8602.severity = none
+
+# CS8603: Possible null reference return.
+dotnet_diagnostic.CS8603.severity = none
+
 [*.{cs,vb}]
 #### Naming styles ####
 

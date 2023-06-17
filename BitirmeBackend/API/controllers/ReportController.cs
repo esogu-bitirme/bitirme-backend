@@ -4,7 +4,6 @@ using Entities.Dtos;
 using Entities.Dtos.Request;
 using Entities.Exceptions;
 using Entities.Modals;
-using Entities.Dtos.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -15,11 +14,12 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IReportService _reportService;
-        public ReportController(IMapper mapper,IReportService reportService)
+        private readonly IPatientService _patientService;
+        public ReportController(IMapper mapper, IReportService reportService, IPatientService patientService)
         {
             _mapper = mapper;
             _reportService = reportService;
-            
+            _patientService = patientService;
         }
 
         [HttpGet]
@@ -107,6 +107,22 @@ namespace API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("patient/{patientId}")]
+        [ProducesResponseType(typeof(Report), 200)]
+        [ProducesResponseType(typeof(NoContentResult), 204)]
+        [ProducesResponseType(typeof(Exception), 500)]
+        public async Task<IActionResult> GetPatientReports(int patientId)
+        {
+            var patient = _patientService.GetById(patientId);
+            var patientReports = await _reportService.GetByPatientId(patient.Id);
+
+            if(!patientReports.Any())
+                return NoContent();
+
+            var mappedPatientReports = _mapper.Map<List<ReportDto>>(patientReports);
+            return Ok(mappedPatientReports);
         }
 
     }

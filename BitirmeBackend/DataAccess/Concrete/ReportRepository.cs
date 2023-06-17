@@ -1,15 +1,7 @@
 ﻿using DataAccess.Abstract;
-using Entities.Dtos.Request;
-using Entities.Dtos.Response;
 using Entities.Modals;
 using Entities.Exceptions;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete
 {
@@ -63,6 +55,7 @@ namespace DataAccess.Concrete
             catch (Exception exception) { throw exception; }
         }
 
+
         public Report Update(Report report)
         {
             using (var context = new ApplicationDbContext()) {
@@ -75,6 +68,19 @@ namespace DataAccess.Concrete
                 catch (Exception exception) { throw exception; }
             }
             
+        }
+        public async Task<List<Report>> GetByPatientId(int patientId)
+        {
+            try
+            {
+                var reports = await _context.Reports.Where(x => x.PatientId.Equals(patientId)).ToListAsync();
+                if (reports == null)
+                {
+                    throw new EntityNotFoundException($"Reports not found with patient id {patientId}!");
+                }
+                return reports;
+            }
+            catch (Exception exception) { throw exception; }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Business.Concrete
             var claims = new[]
             {
                 new Claim(type:"userId",  value : user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.UserType.ToString())
+                new Claim(type:"role", value: user.UserType.ToString())
             };
             var token = new JwtSecurityToken("https://localhost:50198",
                 "https://localhost:50198",

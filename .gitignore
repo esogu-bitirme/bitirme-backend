@@ -409,3 +409,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/BitirmeBackend/API/obj/Debug/net7.0/API.assets.cache
+/BitirmeBackend/API/obj/Debug/net7.0/API.GeneratedMSBuildEditorConfig.editorconfig
+/BitirmeBackend/API/obj/Debug/net7.0/API.csproj.AssemblyReference.cache

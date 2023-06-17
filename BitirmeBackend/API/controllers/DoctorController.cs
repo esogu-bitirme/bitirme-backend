@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
 using Business.Abstract;
-using Business.Concrete;
-using DataAccess;
 using Entities;
 using Entities.Dtos.Request;
 using Entities.Dtos.Response;
 using Entities.Exceptions;
-using Entities.Modals;
-using Entities.Dtos.Request;
-using Entities.Dtos.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

@@ -1,7 +1,7 @@
 ﻿using Entities;
 using Entities.Modals;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
 
 namespace DataAccess
@@ -17,10 +17,11 @@ namespace DataAccess
         public DbSet<DoctorPatient> DoctorPatients { get; set; }
         public DbSet<Image> Images { get; set; }
 
+        private readonly IConfiguration configuration;
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration configuration) : base(options)
         {
-
+            this.configuration = configuration;
         }
 
         public ApplicationDbContext()
@@ -42,8 +43,8 @@ namespace DataAccess
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql(@"Host=localhost;Port=5432;Database=bitirme;Username=postgres;Password=admin");
-
+            if (!optionsBuilder.IsConfigured)
+                optionsBuilder.UseNpgsql(configuration["database"]);
         }
     }
 }

@@ -17,5 +17,9 @@ public class AutoMapperProfile : Profile
         CreateMap<DoctorRequestDto, Doctor>().ReverseMap();
         CreateMap<Doctor, DoctorResponseDto>().ReverseMap();
         CreateMap<Doctor, DoctorUpdateRequestDto>().ReverseMap();
+
+        CreateMap<PatientRequestDto, Patient>().ReverseMap();
+        CreateMap<Patient, PatientResponseDto>().ReverseMap();
+        CreateMap<Patient, PatientUpdateRequestDto>().ReverseMap();
     }
 }

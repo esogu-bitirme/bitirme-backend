@@ -59,6 +59,24 @@ namespace DataAccess.Concrete
             catch (Exception exception) { throw exception; }
         }
 
+        public List<Patient> GetByDoctorUserId(int doctorUserId)
+        {
+            try
+            {
+                int doctorId = _context.Doctors.FirstOrDefault(x=>x.UserId == doctorUserId).Id;
+                List<DoctorPatient> relations = _context.DoctorPatients.Where(x => x.DoctorId == doctorId).ToList();
+                List<Patient> patients = new List<Patient>();
+                foreach (DoctorPatient rel in relations)
+                {
+                    Patient patient = _context.Patients.Find(rel.PatientId);
+                    patient.User = _context.Users.Find(patient.UserId);
+                    patients.Add(patient);
+                }
+                return patients;
+            }
+            catch (Exception exception) { throw exception; }
+        }
+
         public Patient Update(Patient patient)
         {
             using (var context = new ApplicationDbContext())

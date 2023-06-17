@@ -21,5 +21,6 @@ namespace Business.Abstract
         Patient Update(Patient doctor);
 
         bool Delete(int id);
+        public List<Patient> GetByDoctorUserId(int doctorUserId);
     }
 }

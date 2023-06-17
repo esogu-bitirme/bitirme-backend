@@ -10,6 +10,10 @@ using Entities.Modals;
 using Entities.Dtos.Request;
 using Entities.Dtos.Response;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Entities.Enums;
+using Microsoft.Net.Http.Headers;
+using Microsoft.SqlServer.Server;
 
 namespace API.Controllers
 {
@@ -46,6 +50,30 @@ namespace API.Controllers
             {
                 var record = _mapper.Map<PatientResponseDto>(_patientService.GetById(id));
                 return Ok(record);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "DOCTOR")]
+        [HttpGet("doctor")]
+        public IActionResult GetPatientsWithDoctorId()
+        {
+            try
+            {
+                var userId = HttpContext.User.FindFirst("userId")?.Value;
+
+                int userIdInt = int.Parse(userId);
+
+                List<Patient> patients = _patientService.GetByDoctorUserId(userIdInt);
+                var records = _mapper.Map<List<PatientResponseDto>>(patients);
+                return Ok(records);
             }
             catch (EntityNotFoundException ex)
             {

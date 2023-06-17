@@ -17,6 +17,7 @@ namespace DataAccess.Abstract
         public Patient Add(Patient patient);
         public Patient Update(Patient patient);
         public bool Delete(int id);
+        public List<Patient> GetByDoctorUserId(int doctorUserId);
 
     }
 }

@@ -16,6 +16,7 @@ namespace DataAccess.Abstract
         public User Add(User user);
         public User Update(User user);
         public bool Delete(int id);
+        public User GetByUsername(string username);
 
     }
 }

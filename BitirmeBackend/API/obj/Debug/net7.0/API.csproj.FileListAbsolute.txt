@@ -170,3 +170,10 @@ D:\git\bitirme-backend\BitirmeBackend\API\obj\Debug\net7.0\refint\API.dll
 D:\git\bitirme-backend\BitirmeBackend\API\obj\Debug\net7.0\API.pdb
 D:\git\bitirme-backend\BitirmeBackend\API\obj\Debug\net7.0\API.genruntimeconfig.cache
 D:\git\bitirme-backend\BitirmeBackend\API\obj\Debug\net7.0\ref\API.dll
+D:\git\bitirme-backend\BitirmeBackend\API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\git\bitirme-backend\BitirmeBackend\API\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\git\bitirme-backend\BitirmeBackend\API\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+D:\git\bitirme-backend\BitirmeBackend\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+D:\git\bitirme-backend\BitirmeBackend\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\git\bitirme-backend\BitirmeBackend\API\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+D:\git\bitirme-backend\BitirmeBackend\API\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

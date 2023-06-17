@@ -5,10 +5,12 @@ using DataAccess;
 using Entities.Dtos;
 using Entities.Exceptions;
 using Entities.Modals;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/comment")]
     [ApiController]
     public class CommentController : ControllerBase

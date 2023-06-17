@@ -63,6 +63,20 @@ namespace DataAccess.Concrete
             catch (Exception exception) { throw exception; }
         }
 
+        public User GetByUsername(string username)
+        {
+            try
+            {
+                User user = _context.Users.FirstOrDefault(x => x.Username == username);
+                if (user == null)
+                {
+                    throw new EntityNotFoundException("User not found with username " + username.ToString() + " !");
+                }
+                return user;
+            }
+            catch (Exception exception) { throw exception; }
+        }
+
         public User Update(User user)
         {
             using (var context = new ApplicationDbContext()) {

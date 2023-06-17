@@ -16,11 +16,12 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        public UserController(IMapper mapper,IUserService userService)
+        private readonly IAuthService _authService;
+        public UserController(IMapper mapper,IUserService userService, IAuthService authService)
         {
             _mapper = mapper;
             _userService = userService;
-            
+            _authService = authService;
         }
 
         [HttpGet]
@@ -69,6 +70,29 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
             
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login(LoginRequestDto user)
+        {
+            try
+            {
+                if (_userService.CheckPassword(user.Username, user.Password))
+                {
+                    string token = _authService.generateToken(_userService.GetByUsername(user.Username));
+                    return (Ok(token));
+                }
+                else
+                {
+                    return BadRequest("False Password!");
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpDelete("{id}")]

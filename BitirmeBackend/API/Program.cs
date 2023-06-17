@@ -3,11 +3,12 @@ using Business.Concrete;
 using DataAccess;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
-
-
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,10 +23,26 @@ builder.Services.AddDbContext<ApplicationDbContext>(
             options => options.UseNpgsql(builder.Configuration["database"]));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-/*builder.Services.AddCors(c =>
+//builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+
+builder.Services.AddAuthentication(x =>
 {
-    c.AddPolicy("All", p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
-});*/
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+        ValidAudience = builder.Configuration["JwtSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]!))
+    };
+});
 
 builder.Services.AddCors(options =>
 {
@@ -52,6 +69,7 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IDoctorPatientService, DoctorPatientService>();
 builder.Services.AddScoped<IDoctorPatientRepository, DoctorPatientRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 var app = builder.Build();
@@ -73,6 +91,7 @@ app.UseSwaggerUI(options =>
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

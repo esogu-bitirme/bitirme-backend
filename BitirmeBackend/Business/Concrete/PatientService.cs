@@ -50,5 +50,10 @@ namespace Business.Concrete
             patient.CreateDate = currentPatient.CreateDate;
             return _patientRepository.Update(patient);
         }
+
+        public List<Patient> GetByDoctorUserId(int doctorUserId)
+        {
+            return _patientRepository.GetByDoctorUserId(doctorUserId);
+        }
     }
 }

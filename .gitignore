@@ -414,3 +414,5 @@ FodyWeavers.xsd
 /BitirmeBackend/API/obj/Debug/net7.0/API.csproj.AssemblyReference.cache
 /BitirmeBackend/Entities/bin/Debug/net7.0/Entities.dll
 /BitirmeBackend/Entities/bin/Debug/net7.0/Entities.pdb
+/BitirmeBackend/DataAccess/obj/Debug/net7.0/ref/DataAccess.dll
+/BitirmeBackend/DataAccess/obj/Debug/net7.0/refint/DataAccess.dll

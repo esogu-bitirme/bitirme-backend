@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace Entities.Dtos.Request
 {
-    public class LoginRequestDto
+    public class UserRequestDto
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Email { get; set; }
 
     }
 }

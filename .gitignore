@@ -412,3 +412,5 @@ FodyWeavers.xsd
 /BitirmeBackend/API/obj/Debug/net7.0/API.assets.cache
 /BitirmeBackend/API/obj/Debug/net7.0/API.GeneratedMSBuildEditorConfig.editorconfig
 /BitirmeBackend/API/obj/Debug/net7.0/API.csproj.AssemblyReference.cache
+/BitirmeBackend/Entities/bin/Debug/net7.0/Entities.dll
+/BitirmeBackend/Entities/bin/Debug/net7.0/Entities.pdb

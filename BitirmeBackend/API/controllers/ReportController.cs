@@ -110,7 +110,7 @@ namespace API.Controllers
         }
 
         [HttpGet("patient/{patientId}")]
-        [ProducesResponseType(typeof(Report), 200)]
+        [ProducesResponseType(typeof(ReportDto), 200)]
         [ProducesResponseType(typeof(NoContentResult), 204)]
         [ProducesResponseType(typeof(Exception), 500)]
         public async Task<IActionResult> GetPatientReports(int patientId)

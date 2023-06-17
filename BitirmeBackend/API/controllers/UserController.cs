@@ -72,7 +72,7 @@ namespace API.Controllers
             
         }
 
-        [HttpPost("login")]
+        [HttpPost("token")]
         public IActionResult Login(LoginRequestDto user)
         {
             try
@@ -80,7 +80,7 @@ namespace API.Controllers
                 if (_userService.CheckPassword(user.Username, user.Password))
                 {
                     string token = _authService.generateToken(_userService.GetByUsername(user.Username));
-                    return (Ok(token));
+                    return Ok(token);
                 }
                 else
                 {

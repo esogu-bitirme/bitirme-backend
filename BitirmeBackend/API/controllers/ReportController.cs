@@ -4,12 +4,14 @@ using Entities.Dtos;
 using Entities.Dtos.Request;
 using Entities.Exceptions;
 using Entities.Modals;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [Route("api/report")]
     [ApiController]
+    [Authorize]
     public class ReportController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -112,7 +114,7 @@ namespace API.Controllers
         [HttpGet("patient/{patientId}")]
         [ProducesResponseType(typeof(ReportDto), 200)]
         [ProducesResponseType(typeof(NoContentResult), 204)]
-        [ProducesResponseType(typeof(Exception), 500)]
+        [ProducesResponseType(typeof(int), 500)]
         public async Task<IActionResult> GetPatientReports(int patientId)
         {
             var patient = _patientService.GetById(patientId);

@@ -19,6 +19,7 @@ namespace Entities.Modals
         [MaxLength(50)]
         public string Title { get; set; }
         public Report Report { get; set; }
+        public int ReportId { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
 

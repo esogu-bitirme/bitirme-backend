@@ -1,10 +1,10 @@
 ﻿using Entities.Dtos.Request;
 using Entities.Dtos.Response;
+using Entities.Dtos;
 using Entities.Modals;
 using AutoMapper;
-using Entities.Request;
 using Entities;
-using Entities.Response;
+
 
 public class AutoMapperProfile : Profile
 {
@@ -21,5 +21,13 @@ public class AutoMapperProfile : Profile
         CreateMap<PatientRequestDto, Patient>().ReverseMap();
         CreateMap<Patient, PatientResponseDto>().ReverseMap();
         CreateMap<Patient, PatientUpdateRequestDto>().ReverseMap();
+
+        CreateMap<Comment, CommentDto>().ReverseMap();
+
+        CreateMap<ReportDto, Report>().ReverseMap();
+        CreateMap<Report, ReportUpdateRequestDto>().ReverseMap();
+
+        CreateMap<ImageDto, Image>().ReverseMap();
+        CreateMap<Image, ImageUpdateRequestDto>().ReverseMap();
     }
 }

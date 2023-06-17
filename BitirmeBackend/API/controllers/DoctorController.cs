@@ -7,8 +7,8 @@ using Entities.Dtos.Request;
 using Entities.Dtos.Response;
 using Entities.Exceptions;
 using Entities.Modals;
-using Entities.Request;
-using Entities.Response;
+using Entities.Dtos.Request;
+using Entities.Dtos.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

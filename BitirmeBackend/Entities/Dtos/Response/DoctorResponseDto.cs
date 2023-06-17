@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Principal;
 
-namespace Entities.Response
+namespace Entities.Dtos.Response
 {
     public class DoctorResponseDto
     {

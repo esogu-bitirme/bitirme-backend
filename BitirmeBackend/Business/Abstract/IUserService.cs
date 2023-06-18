@@ -21,8 +21,8 @@ namespace Business.Abstract
 
         bool Delete(int id);
 
-        bool CheckPassword(string username,string password);
-        public User GetByUsername(string username);
+        bool CheckPassword(string email,string password);
+        public User GetByEmail(string username);
 
     }
 }

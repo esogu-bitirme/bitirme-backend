@@ -77,9 +77,9 @@ namespace API.Controllers
         {
             try
             {
-                if (_userService.CheckPassword(user.Username, user.Password))
+                if (_userService.CheckPassword(user.Email, user.Password))
                 {
-                    string token = _authService.generateToken(_userService.GetByUsername(user.Username));
+                    string token = _authService.generateToken(_userService.GetByEmail(user.Email));
                     return Ok(token);
                 }
                 else

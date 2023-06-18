@@ -39,9 +39,9 @@ namespace Business.Concrete
             return _userRepository.GetById(id);
         }
 
-        public User GetByUsername(string username)
+        public User GetByEmail(string username)
         {
-            return _userRepository.GetByUsername(username);
+            return _userRepository.GetByEmail(username);
         }
 
         public User Update(User user)
@@ -52,11 +52,11 @@ namespace Business.Concrete
             return _userRepository.Update(user);
         }
 
-        public bool CheckPassword(string username,string password)
+        public bool CheckPassword(string email,string password)
         {
-            User user = _userRepository.GetByUsername(username);
+            User user = _userRepository.GetByEmail(email);
             if (user == null) {
-                throw new Exception("User not found with username "+username+" !");
+                throw new Exception("User not found with email "+email+" !");
             }
 
             return user.Password == password;

@@ -32,7 +32,6 @@ namespace DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique(); //todo : doesn't work Idk why
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
             modelBuilder.Entity<Doctor>().HasIndex(u => u.Tckn).IsUnique();
             modelBuilder.Entity<Doctor>().HasIndex(u => u.PhoneNumber).IsUnique();

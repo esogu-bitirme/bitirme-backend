@@ -63,14 +63,14 @@ namespace DataAccess.Concrete
             catch (Exception exception) { throw exception; }
         }
 
-        public User GetByUsername(string username)
+        public User GetByEmail(string email)
         {
             try
             {
-                User user = _context.Users.FirstOrDefault(x => x.Username == username);
+                User user = _context.Users.FirstOrDefault(x => x.Email == email);
                 if (user == null)
                 {
-                    throw new EntityNotFoundException("User not found with username " + username.ToString() + " !");
+                    throw new EntityNotFoundException("User not found with username " + email.ToString() + " !");
                 }
                 return user;
             }

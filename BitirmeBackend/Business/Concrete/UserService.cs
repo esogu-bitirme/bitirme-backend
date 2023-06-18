@@ -1,24 +1,23 @@
 ﻿using Business.Abstract;
 using Entities.Modals;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataAccess.Abstract;
-using DataAccess.Concrete;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace Business.Concrete
 {
     public class UserService : IUserService
     {
         private IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository) {
+        private readonly SecurityService _securityService;
+
+        public UserService(IUserRepository userRepository, SecurityService securityService)
+        {
             _userRepository = userRepository;
+            _securityService = securityService;
         }
         public User Add(User user)
         {
+            string hashedPassword = _securityService.HashPassword(user.Password);
+            user.Password= hashedPassword;
             user.CreateDate = DateTime.Now;
             user.UpdateDate = DateTime.Now;
             return _userRepository.Add(user);
@@ -59,7 +58,7 @@ namespace Business.Concrete
                 throw new Exception("User not found with username "+username+" !");
             }
 
-            return user.Password == password;
+            return user.Password == _securityService.HashPassword(password);
         }
     }
 }

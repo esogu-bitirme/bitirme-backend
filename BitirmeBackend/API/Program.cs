@@ -102,7 +102,7 @@ builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IDoctorPatientService, DoctorPatientService>();
 builder.Services.AddScoped<IDoctorPatientRepository, DoctorPatientRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+builder.Services.AddScoped(typeof(SecurityService));
 
 var app = builder.Build();
 

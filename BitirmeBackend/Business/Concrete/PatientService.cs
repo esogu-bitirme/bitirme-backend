@@ -15,14 +15,19 @@ namespace Business.Concrete
     public class PatientService : IPatientService
     {
         private IPatientRepository _patientRepository;
-        public PatientService(IPatientRepository patientRepository)
+        private readonly SecurityService _securityService;
+        public PatientService(IPatientRepository patientRepository, SecurityService securityService)
         {
             _patientRepository = patientRepository;
+            _securityService = securityService;
         }
         public Patient Add(Patient patient)
         {
             patient.CreateDate = DateTime.Now;
             patient.UpdateDate = DateTime.Now;
+            patient.User.CreateDate = DateTime.Now;
+            patient.User.UpdateDate = DateTime.Now;
+            patient.User.Password = _securityService.HashPassword(patient.User.Password);
             patient.User.UserType = UserType.PATIENT;
             return _patientRepository.Add(patient);
         }

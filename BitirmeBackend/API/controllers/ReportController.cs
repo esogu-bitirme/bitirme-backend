@@ -2,6 +2,7 @@
 using Business.Abstract;
 using Entities.Dtos;
 using Entities.Dtos.Request;
+using Entities.Dtos.Response;
 using Entities.Exceptions;
 using Entities.Modals;
 using Microsoft.AspNetCore.Authorization;
@@ -29,7 +30,7 @@ namespace API.Controllers
         public IActionResult GetAllReports() {
             try
             {
-                var records = _mapper.Map<List<ReportDto>>(_reportService.GetAll());
+                var records = _mapper.Map<List<ReportResponseDto>>(_reportService.GetAll());
                 return Ok(records);
             }
             catch (Exception ex)
@@ -43,7 +44,7 @@ namespace API.Controllers
         public IActionResult GetReport(int id) {
             try
             {
-                var record = _mapper.Map<ReportDto>(_reportService.GetById(id));
+                var record = _mapper.Map<ReportResponseDto>(_reportService.GetById(id));
                 return Ok(record);
             }
             catch (EntityNotFoundException ex)
@@ -57,13 +58,13 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddReport(ReportDto report)
+        public IActionResult AddReport(ReportRequestDto report)
         {
             try
             {
                 var reportRequest = _mapper.Map<Report>(report);
                 Report reportResponse = _reportService.Add(reportRequest);
-                ReportDto reportResponseDto = _mapper.Map<ReportDto>(reportResponse);
+                ReportResponseDto reportResponseDto = _mapper.Map<ReportResponseDto>(reportResponse);
                 return Ok(reportResponseDto);
             }catch(Exception ex)
             {
@@ -98,7 +99,7 @@ namespace API.Controllers
             {
                 var reportRequest = _mapper.Map<Report>(report);
                 Report reportResponse = _reportService.Update(reportRequest);
-                ReportDto updatedReport = _mapper.Map<ReportDto>(reportResponse);
+                ReportResponseDto updatedReport = _mapper.Map<ReportResponseDto>(reportResponse);
                 return Ok(updatedReport);
             }
             catch (EntityNotFoundException ex)
@@ -112,7 +113,7 @@ namespace API.Controllers
         }
 
         [HttpGet("patient/{patientId}")]
-        [ProducesResponseType(typeof(ReportDto), 200)]
+        [ProducesResponseType(typeof(ReportResponseDto), 200)]
         [ProducesResponseType(typeof(NoContentResult), 204)]
         [ProducesResponseType(typeof(int), 500)]
         public async Task<IActionResult> GetPatientReports(int patientId)
@@ -123,7 +124,7 @@ namespace API.Controllers
             if(!patientReports.Any())
                 return NoContent();
 
-            var mappedPatientReports = _mapper.Map<List<ReportDto>>(patientReports);
+            var mappedPatientReports = _mapper.Map<List<ReportResponseDto>>(patientReports);
             return Ok(mappedPatientReports);
         }
 

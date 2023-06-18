@@ -24,8 +24,9 @@ public class AutoMapperProfile : Profile
 
         CreateMap<Comment, CommentDto>().ReverseMap();
 
-        CreateMap<ReportDto, Report>().ReverseMap();
+        CreateMap<ReportResponseDto, Report>().ReverseMap();
         CreateMap<Report, ReportUpdateRequestDto>().ReverseMap();
+        CreateMap<Report, ReportRequestDto>().ReverseMap();
 
         CreateMap<ImageDto, Image>().ReverseMap();
         CreateMap<Image, ImageUpdateRequestDto>().ReverseMap();

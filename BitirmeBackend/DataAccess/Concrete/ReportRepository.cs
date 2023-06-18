@@ -78,6 +78,10 @@ namespace DataAccess.Concrete
                 {
                     throw new EntityNotFoundException($"Reports not found with patient id {patientId}!");
                 }
+                foreach (var report in reports)
+                {
+                    report.Doctor = _context.Doctors.Find(report.DoctorId);
+                }
                 return reports;
             }
             catch (Exception exception) { throw exception; }

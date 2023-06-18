@@ -11,7 +11,6 @@ namespace Entities.Dtos.Response
 {
     public class UserResponseDto
     {
-        public string Username { get; set; }
         public string Email { get; set; }
         public string UserType { get; set; }
 

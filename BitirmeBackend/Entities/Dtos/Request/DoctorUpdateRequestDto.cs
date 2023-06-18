@@ -15,6 +15,8 @@ namespace Entities.Dtos.Request
         public string Address { get; set; }
         public string OfficeNo { get; set; }
         public string Branch { get; set; }
+        public string Gender { get; set; }
+        public DateOnly BirthDate { get; set; }
 
     }
 }

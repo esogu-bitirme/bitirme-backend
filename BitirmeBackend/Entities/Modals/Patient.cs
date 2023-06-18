@@ -22,6 +22,8 @@ namespace Entities.Modals
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public int UserId { get; set; }
+        public string Gender { get; set; }
+        public DateOnly BirthDate { get; set; }
         public User User { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }

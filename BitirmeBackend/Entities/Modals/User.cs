@@ -13,10 +13,6 @@ namespace Entities.Modals
     {
         [Key]
         public int Id { get; set; }
-
-        [Index(IsUnique = true)]
-        [MaxLength(30)]
-        public string Username { get; set; }
         public string Password { get; set; }
         [Index(IsUnique = true)]
         public string Email { get; set; }

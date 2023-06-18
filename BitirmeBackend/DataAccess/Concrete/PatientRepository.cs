@@ -58,6 +58,21 @@ namespace DataAccess.Concrete
             catch (Exception exception) { throw exception; }
         }
 
+        public Patient GetByUserId(int userId)
+        {
+            try
+            {
+                Patient patient = _context.Patients.FirstOrDefault(d => d.UserId == userId);
+                if (patient == null)
+                {
+                    throw new EntityNotFoundException("Patient not found with id " + userId.ToString() + " !");
+                }
+                patient.User = _context.Users.FirstOrDefault(u => u.Id == patient.UserId);
+                return patient;
+            }
+            catch (Exception exception) { throw exception; }
+        }
+
         public List<Patient> GetByDoctorUserId(int doctorUserId)
         {
             try

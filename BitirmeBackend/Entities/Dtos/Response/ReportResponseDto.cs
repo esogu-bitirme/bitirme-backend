@@ -9,9 +9,12 @@ namespace Entities.Dtos.Response
 {
     public class ReportResponseDto
     {
+        public int Id { get; set; }
         public Status Status { get; set; }
         public string Diagnosis { get; set; }
         public string Description { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime UpdateDate { get; set; }
         public DoctorResponseDto Doctor { get; set; }
         public int PatientId { get; set; }
 

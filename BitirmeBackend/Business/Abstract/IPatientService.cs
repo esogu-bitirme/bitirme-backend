@@ -15,7 +15,7 @@ namespace Business.Abstract
         List<Patient> GetAll();
 
         Patient GetById(int id);
-
+        Patient GetByUserId(int userId);
         Patient Add(Patient doctor);
 
         Patient Update(Patient doctor);

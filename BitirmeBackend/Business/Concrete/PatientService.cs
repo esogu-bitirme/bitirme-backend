@@ -47,6 +47,11 @@ namespace Business.Concrete
             return _patientRepository.GetById(id);
         }
 
+        public Patient GetByUserId(int userId)
+        {
+            return _patientRepository.GetByUserId(userId);
+        }
+
         public Patient Update(Patient patient)
         {
             patient.UpdateDate = DateTime.Now;

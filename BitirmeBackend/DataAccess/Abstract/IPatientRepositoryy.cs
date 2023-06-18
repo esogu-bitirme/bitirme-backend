@@ -14,6 +14,7 @@ namespace DataAccess.Abstract
     {
         public List<Patient> GetAll();
         public Patient GetById(int id);
+        public Patient GetByUserId(int userId);
         public Patient Add(Patient patient);
         public Patient Update(Patient patient);
         public bool Delete(int id);

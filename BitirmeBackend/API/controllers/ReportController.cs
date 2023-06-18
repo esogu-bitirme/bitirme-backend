@@ -128,5 +128,27 @@ namespace API.Controllers
             return Ok(mappedPatientReports);
         }
 
+        [HttpGet("myreports")]
+        [ProducesResponseType(typeof(ReportResponseDto), 200)]
+        [ProducesResponseType(typeof(NoContentResult), 204)]
+        [ProducesResponseType(typeof(int), 500)]
+        public async Task<IActionResult> GetMyPatientReports()
+        {
+            var userId = HttpContext.User.FindFirst("userId")?.Value;
+            if (userId is null)
+                throw new EntityNotFoundException("User id not found within http context!");
+
+            int userIdInt = int.Parse(userId);
+
+            var patient = _patientService.GetByUserId(userIdInt);
+            var patientReports = await _reportService.GetByPatientId(patient.Id);
+
+            if (!patientReports.Any())
+                return NoContent();
+
+            var mappedPatientReports = _mapper.Map<List<ReportResponseDto>>(patientReports);
+            return Ok(mappedPatientReports);
+        }
+
     }
 }

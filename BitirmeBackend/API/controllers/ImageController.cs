@@ -7,20 +7,25 @@ using Entities.Dtos;
 using Entities.Exceptions;
 using Entities.Modals;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Entities.Dtos.Response;
 
 namespace API.Controllers
 {
     [Route("api/image")]
     [ApiController]
+    [Authorize]
     public class ImageController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IImageService _imageService;
-        public ImageController(IMapper mapper,IImageService imageService)
+        private readonly IReportService _reportService;
+
+        public ImageController(IMapper mapper, IImageService imageService, IReportService reportService)
         {
             _mapper = mapper;
             _imageService = imageService;
-            
+            _reportService = reportService;
         }
 
         [HttpGet]
@@ -99,6 +104,33 @@ namespace API.Controllers
                 Image imageResponse = _imageService.Update(imageRequest);
                 ImageDto updatedImage = _mapper.Map<ImageDto>(imageResponse);
                 return Ok(updatedImage);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("report/{reportId}")]
+        [ProducesResponseType(typeof(List<ImageDto>), 200)]
+        [ProducesResponseType(typeof(NoContentResult), 204)]
+        [ProducesResponseType(typeof(int), 500)]
+        public async Task<IActionResult> GetImageByReportId(int reportId)
+        {
+            try
+            {
+                var report = _reportService.GetById(reportId);
+                var images = await _imageService.GetByReportId(reportId);
+
+                if (!images.Any())
+                    return NoContent();
+
+                var mappedReportImages = _mapper.Map<List<ImageDto>>(images);
+                return Ok(mappedReportImages);
             }
             catch (EntityNotFoundException ex)
             {

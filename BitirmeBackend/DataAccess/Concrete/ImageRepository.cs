@@ -10,6 +10,7 @@ using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete
 {
@@ -75,6 +76,21 @@ namespace DataAccess.Concrete
                 catch (Exception exception) { throw exception; }
             }
             
+        }
+
+        public async Task<List<Image>> GetByReportId(int reportId)
+        {
+            try
+            {
+                var images = await _context.Images.Where(x => x.ReportId.Equals(reportId)).ToListAsync();
+                if (!images.Any())
+                {
+                    throw new EntityNotFoundException($"Images not found with report id {reportId}!");
+                }
+
+                return images;
+            }
+            catch (Exception exception) { throw exception; }
         }
     }
 }

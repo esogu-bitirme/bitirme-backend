@@ -20,6 +20,6 @@ namespace Business.Abstract
         Image Update(Image image);
 
         bool Delete(int id);
-
+        Task<List<Image>> GetByReportId(int reportId);
     }
 }

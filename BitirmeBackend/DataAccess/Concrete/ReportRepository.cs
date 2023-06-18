@@ -74,7 +74,7 @@ namespace DataAccess.Concrete
             try
             {
                 var reports = await _context.Reports.Where(x => x.PatientId.Equals(patientId)).ToListAsync();
-                if (reports == null)
+                if (!reports.Any())
                 {
                     throw new EntityNotFoundException($"Reports not found with patient id {patientId}!");
                 }

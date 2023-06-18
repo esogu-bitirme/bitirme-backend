@@ -45,5 +45,10 @@ namespace Business.Concrete
             image.CreateDate = currentImage.CreateDate;
             return _imageRepository.Update(image);
         }
+
+        public async Task<List<Image>> GetByReportId(int reportId)
+        {
+            return await _imageRepository.GetByReportId(reportId);
+        }
     }
 }

@@ -92,7 +92,7 @@ builder.Services.AddCors(c =>
     c.AddPolicy("All", p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 });
 
-
+builder.Services.AddScoped<IModelService, ModelService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();

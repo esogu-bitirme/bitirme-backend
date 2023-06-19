@@ -44,7 +44,7 @@ namespace DataAccess
             base.OnConfiguring(optionsBuilder);
             if (!optionsBuilder.IsConfigured)
                 //optionsBuilder.UseNpgsql(configuration["database"]);
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=bitirme;Username=postgres;Password=admin");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=bitirme;Username=postgres;Password=654525");
         }
     }
 }

@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Principal;
 
-namespace Entities
+namespace Entities.Modals
 {
     public class Doctor
     {
-        [Key] 
+        [Key]
         public int Id { get; set; }
 
         [MaxLength(30)]

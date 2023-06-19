@@ -14,7 +14,7 @@ namespace API.Controllers
 {
     [Route("api/image")]
     [ApiController]
-    [Authorize]
+    // [Authorize]
     public class ImageController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -29,8 +29,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-
-        public IActionResult GetAllImages() {
+        [Authorize]
+        public IActionResult GetAllImages()
+        {
             try
             {
                 var records = _mapper.Map<List<ImageDto>>(_imageService.GetAll());
@@ -42,9 +43,10 @@ namespace API.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpGet("{id}")]
-        public IActionResult GetImage(int id) {
+        public IActionResult GetImage(int id)
+        {
             try
             {
                 var record = _mapper.Map<ImageDto>(_imageService.GetById(id));
@@ -59,7 +61,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult AddImage(ImageDto image)
         {
@@ -69,31 +71,32 @@ namespace API.Controllers
                 Image imageResponse = _imageService.Add(imageRequest);
                 ImageDto imageResponseDto = _mapper.Map<ImageDto>(imageResponse);
                 return Ok(imageResponseDto);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
-        }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteImage(int id)
+        }
+        [Authorize]
+        [HttpDelete("{fileName}")]
+        public IActionResult DeleteImage(string fileName)
         {
             try
             {
-                _imageService.Delete(id);
-                return Ok("Image successfully deleted with id "+id+"!");
+                _imageService.Delete(fileName);
+                return Ok("Image successfully deleted with id " + fileName + "!");
             }
             catch (EntityNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize]
         [HttpPut]
         public IActionResult UpdateImage(ImageUpdateRequestDto image)
         {
@@ -114,7 +117,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize]
         [HttpGet("report/{reportId}")]
         [ProducesResponseType(typeof(List<ImageDto>), 200)]
         [ProducesResponseType(typeof(NoContentResult), 204)]
@@ -141,7 +144,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize]
         [HttpPost("save-image")]
         public async Task<IActionResult> SaveImage(IFormFile file)
         {
@@ -162,18 +165,32 @@ namespace API.Controllers
                 // Klasörü oluşturun (varsa zaten mevcut)
                 Directory.CreateDirectory(folderPath);
 
-                // Resmi kopyalayın ve kaydedin
+                // Resmi kopyala ve kaydet
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
 
-                return Ok("Resim başarıyla kaydedildi");
+                return Ok(uniqueFileName);
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Resim kaydedilirken bir hata oluştu");
             }
+        }
+
+        [HttpGet("display/{imageName}")]
+        public IActionResult ResimGetir(string imageName)
+        {
+            var folderPath = Path.Combine("images", imageName);
+
+            if (System.IO.File.Exists(folderPath))
+            {
+                var imageBytes = System.IO.File.ReadAllBytes(folderPath);
+                return File(imageBytes, "image/jpeg");
+            }
+
+            return NotFound("Resim bulunamadı.");
         }
 
     }

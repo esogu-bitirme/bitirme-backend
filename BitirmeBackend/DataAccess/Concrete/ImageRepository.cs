@@ -25,17 +25,17 @@ namespace DataAccess.Concrete
         public Image Add(Image image)
         {
             _context.Images.Add(image);
-            _context.SaveChanges(); 
+            _context.SaveChanges();
             return image;
         }
 
-        public bool Delete(int id)
+        public bool Delete(string path)
         {
-            var deleteImage = GetById(id);
+            var deleteImage = _context.Images.FirstOrDefault(x => x.Path == path);
             _context.Images.Remove(deleteImage);
             _context.SaveChanges();
             return true;
-            
+
         }
 
         public List<Image> GetAll()
@@ -54,10 +54,10 @@ namespace DataAccess.Concrete
         {
             try
             {
-                Image image =_context.Images.Find(id);
+                Image image = _context.Images.Find(id);
                 if (image == null)
                 {
-                    throw new EntityNotFoundException("Image not found with id "+id.ToString()+" !");
+                    throw new EntityNotFoundException("Image not found with id " + id.ToString() + " !");
                 }
                 return image;
             }
@@ -66,7 +66,8 @@ namespace DataAccess.Concrete
 
         public Image Update(Image image)
         {
-            using (var context = new ApplicationDbContext()) {
+            using (var context = new ApplicationDbContext())
+            {
                 try
                 {
                     context.Images.Update(image);
@@ -75,7 +76,7 @@ namespace DataAccess.Concrete
                 }
                 catch (Exception exception) { throw exception; }
             }
-            
+
         }
 
         public async Task<List<Image>> GetByReportId(int reportId)

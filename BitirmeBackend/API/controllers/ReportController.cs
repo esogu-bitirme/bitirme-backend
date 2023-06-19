@@ -18,16 +18,19 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly IReportService _reportService;
         private readonly IPatientService _patientService;
-        public ReportController(IMapper mapper, IReportService reportService, IPatientService patientService)
+        private readonly IDoctorService _doctorService;
+        public ReportController(IMapper mapper, IReportService reportService, IPatientService patientService, IDoctorService doctorService)
         {
             _mapper = mapper;
             _reportService = reportService;
             _patientService = patientService;
+            _doctorService = doctorService;
         }
 
         [HttpGet]
 
-        public IActionResult GetAllReports() {
+        public IActionResult GetAllReports()
+        {
             try
             {
                 var records = _mapper.Map<List<ReportResponseDto>>(_reportService.GetAll());
@@ -41,7 +44,8 @@ namespace API.Controllers
 
 
         [HttpGet("{id}")]
-        public IActionResult GetReport(int id) {
+        public IActionResult GetReport(int id)
+        {
             try
             {
                 var record = _mapper.Map<ReportResponseDto>(_reportService.GetById(id));
@@ -58,19 +62,28 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult AddReport(ReportRequestDto report)
         {
             try
             {
+                var userId = HttpContext.User.FindFirst("userId")?.Value;
+                if (userId is null)
+                    throw new EntityNotFoundException("User id not found within http context!");
+
+                int userIdInt = int.Parse(userId);
+                Doctor doctor = _doctorService.GetByUserId(userIdInt);
                 var reportRequest = _mapper.Map<Report>(report);
+                reportRequest.DoctorId = doctor.Id;
                 Report reportResponse = _reportService.Add(reportRequest);
                 ReportResponseDto reportResponseDto = _mapper.Map<ReportResponseDto>(reportResponse);
                 return Ok(reportResponseDto);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
 
         [HttpDelete("{id}")]
@@ -79,13 +92,13 @@ namespace API.Controllers
             try
             {
                 _reportService.Delete(id);
-                return Ok("Report successfully deleted with id "+id+"!");
+                return Ok("Report successfully deleted with id " + id + "!");
             }
             catch (EntityNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -121,7 +134,7 @@ namespace API.Controllers
             var patient = _patientService.GetById(patientId);
             var patientReports = await _reportService.GetByPatientId(patient.Id);
 
-            if(!patientReports.Any())
+            if (!patientReports.Any())
                 return NoContent();
 
             var mappedPatientReports = _mapper.Map<List<ReportResponseDto>>(patientReports);

@@ -16,6 +16,7 @@ namespace Business.Abstract
 
         Patient GetById(int id);
         Patient GetByUserId(int userId);
+        public Patient GetByTckn(string tckn);
         Patient Add(Patient doctor);
 
         Patient Update(Patient doctor);

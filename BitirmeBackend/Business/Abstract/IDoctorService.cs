@@ -15,6 +15,7 @@ namespace Business.Abstract
         List<Doctor> GetAll();
 
         Doctor GetById(int id);
+        public Doctor GetByUserId(int userId);
 
         Doctor Add(Doctor doctor);
 

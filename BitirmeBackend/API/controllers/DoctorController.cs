@@ -4,6 +4,7 @@ using Entities;
 using Entities.Dtos.Request;
 using Entities.Dtos.Response;
 using Entities.Exceptions;
+using Entities.Modals;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -15,11 +16,13 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly IDoctorService _doctorService;
         private readonly IDoctorPatientService _doctorPatientService;
-        public DoctorController(IMapper mapper, IDoctorService doctorService, IDoctorPatientService doctorPatientService)
+        private readonly IPatientService _patientService;
+        public DoctorController(IMapper mapper, IDoctorService doctorService, IDoctorPatientService doctorPatientService, IPatientService patientService)
         {
             _mapper = mapper;
             _doctorService = doctorService;
             _doctorPatientService = doctorPatientService;
+            _patientService = patientService;
         }
 
         [HttpGet]
@@ -109,11 +112,52 @@ namespace API.Controllers
         }
 
         [HttpPost("patient/{doctorId}/{patientId}")]
-        public IActionResult AddRelationWithPatientId(int patientId,int doctorId)
+        public IActionResult AddRelationWithPatientId(int doctorId,int patientId)
         {
             try
             {
-                return Ok(_doctorPatientService.Add(patientId,doctorId));
+                return Ok(_doctorPatientService.Add(doctorId, patientId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("patient/tckn/{patientTckn}")]
+        public IActionResult AddRelationWithPatientTckn(string patientTckn)
+        {
+            try
+            {
+                var userId = HttpContext.User.FindFirst("userId")?.Value;
+                if (userId is null)
+                    throw new EntityNotFoundException("User id not found within http context!");
+
+                int userIdInt = int.Parse(userId);
+
+                Patient patient = _patientService.GetByTckn(patientTckn);
+                Doctor doctor = _doctorService.GetByUserId(userIdInt);
+                return Ok(_doctorPatientService.Add(doctor.Id, patient.Id ));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("patient/{patientId}")]
+        public IActionResult DeleteRelationWithPatientId(int patientId)
+        {
+            try
+            {
+                var userId = HttpContext.User.FindFirst("userId")?.Value;
+                if (userId is null)
+                    throw new EntityNotFoundException("User id not found within http context!");
+
+                int userIdInt = int.Parse(userId);
+
+                Doctor doctor = _doctorService.GetByUserId(userIdInt);
+                return Ok(_doctorPatientService.Delete(doctor.Id,patientId));
             }
             catch (Exception ex)
             {

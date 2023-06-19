@@ -14,6 +14,7 @@ namespace DataAccess.Abstract
     {
         public List<Doctor> GetAll();
         public Doctor GetById(int id);
+        public Doctor GetByUserId(int userId);
         public Doctor Add(Doctor doctor);
         public Doctor Update(Doctor doctor);
         public bool Delete(int id);

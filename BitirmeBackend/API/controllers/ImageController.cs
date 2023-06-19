@@ -142,5 +142,39 @@ namespace API.Controllers
             }
         }
 
+        [HttpPost("save-image")]
+        public async Task<IActionResult> SaveImage(IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                {
+                    return BadRequest("Geçersiz dosya");
+                }
+
+                // Resmin kaydedileceği klasör yolunu belirleyin
+                string folderPath = "images";
+
+                // Resmin adını ve yolunu oluşturun
+                string uniqueFileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                string filePath = Path.Combine(folderPath, uniqueFileName);
+
+                // Klasörü oluşturun (varsa zaten mevcut)
+                Directory.CreateDirectory(folderPath);
+
+                // Resmi kopyalayın ve kaydedin
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+
+                return Ok("Resim başarıyla kaydedildi");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Resim kaydedilirken bir hata oluştu");
+            }
+        }
+
     }
 }

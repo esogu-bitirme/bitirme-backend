@@ -59,6 +59,20 @@ namespace DataAccess.Concrete
             catch (Exception exception) { throw exception; }
         }
 
+        public Doctor GetByUserId(int userId)
+        {
+            try
+            {
+                Doctor doctor = _context.Doctors.FirstOrDefault(d => d.UserId == userId);
+                if (doctor == null)
+                {
+                    throw new EntityNotFoundException("Doctor not found with id " + userId.ToString() + " !");
+                }
+                doctor.User = _context.Users.FirstOrDefault(u => u.Id == doctor.UserId);
+                return doctor;
+            }
+            catch (Exception exception) { throw exception; }
+        }
         public Doctor Update(Doctor doctor)
         {
             using (var context = new ApplicationDbContext())

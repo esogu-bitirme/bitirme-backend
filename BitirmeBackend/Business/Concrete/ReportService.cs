@@ -34,10 +34,13 @@ namespace Business.Concrete
 
         public Report Update(Report report)
         {
-            report.UpdateDate = DateTime.Now;
             Report currentReport = _reportRepository.GetById(report.Id);
-            report.CreateDate = currentReport.CreateDate;
-            return _reportRepository.Update(report);
+            currentReport.UpdateDate = DateTime.Now;
+            currentReport.Status = report.Status;
+            currentReport.Description = report.Description;
+            currentReport.Diagnosis = report.Diagnosis;
+
+            return _reportRepository.Update(currentReport);
         }
 
         public async Task<List<Report>> GetByPatientId(int patientId)

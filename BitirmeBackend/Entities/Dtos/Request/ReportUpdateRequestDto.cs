@@ -8,7 +8,7 @@ namespace Entities.Dtos.Request
 {
     public class ReportUpdateRequestDto
     {
-        int Id { get; set; }
+        public int Id { get; set; }
         public Status Status { get; set; }
         public string Diagnosis { get; set; }
         public string Description { get; set; }

@@ -17,7 +17,8 @@ namespace Business.Concrete
     {
         private const string secret = "denemedenemedenemedenemedenemedenemedeneme";
         private IUserRepository _userRepository;
-        public AuthService(IUserRepository userRepository) {
+        public AuthService(IUserRepository userRepository)
+        {
             _userRepository = userRepository;
         }
 
@@ -34,12 +35,12 @@ namespace Business.Concrete
             var token = new JwtSecurityToken("https://localhost:50198",
                 "https://localhost:50198",
                 claims,
-                expires: DateTime.Now.AddMinutes(15),
+                expires: DateTime.Now.AddMinutes(6000),
                 signingCredentials: credentials);
 
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-       
+
     }
 }

@@ -15,7 +15,7 @@ namespace DataAccess.Abstract
         public Image GetById(int id);
         public Image Add(Image image);
         public Image Update(Image image);
-        public bool Delete(int id);
+        public bool Delete(string path);
         Task<List<Image>> GetByReportId(int reportId);
     }
 }

@@ -13,7 +13,8 @@ namespace Business.Concrete
     public class ImageService : IImageService
     {
         private IImageRepository _imageRepository;
-        public ImageService(IImageRepository imageRepository) {
+        public ImageService(IImageRepository imageRepository)
+        {
             _imageRepository = imageRepository;
         }
         public Image Add(Image image)
@@ -23,14 +24,14 @@ namespace Business.Concrete
             return _imageRepository.Add(image);
         }
 
-        public bool Delete(int id)
+        public bool Delete(string id)
         {
             return _imageRepository.Delete(id);
         }
 
         public List<Image> GetAll()
         {
-            return _imageRepository.GetAll();    
+            return _imageRepository.GetAll();
         }
 
         public Image GetById(int id)
